@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+  <script src="/theme/theme-loader.js?v=20261106-2" data-scope="admin"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密钥管理</title>
+    <link href="/layui/css/layui.css" rel="stylesheet" />
+    <script src="/layui/js/layui.js"></script>
+  <script src="/admin/cssjs/admin-auth.js"></script>
+  <link rel="stylesheet" href="/admin/cssjs/admin-ui.css?v=20261104-business-bluegray-a">
+    <link rel="stylesheet" href="/admin/cssjs/page5-style1.css?v=20261106-global2">
+  <link rel="stylesheet" href="/theme/colors.css?v=20261106-dark-toolbar5">
+</head>
+
+<body class="admin-subpage api-key-page">
+  <header class="subpage-heading" aria-label="当前页面">
+    <div class="subpage-heading-icon"><i class="layui-icon layui-icon-key" aria-hidden="true"></i></div>
+    <div class="subpage-heading-copy"><div class="subpage-eyebrow">API ACCESS</div><h1>API 密钥管理</h1><p>查看与重置邮件接口密钥，并使用接口说明和测试入口。</p></div>
+  </header>
+
+
+    <div class="center-translucent-container">
+        <div class="layui-form layui-form-pane" action="">
+
+            <div class="layui-form-item api-key-row">
+                <div class="layui-inline">
+                  <label class="layui-form-label" style="width:190px;">读邮件密钥</label>
+                  <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" placeholder="获取中" class="layui-input"  id="read_email_key" readonly>
+                  </div>
+                  <div class="layui-form-mid" style="padding: 0!important;"> 
+                    <button class="layui-btn read_key-btn" name="read_email_key">重置</button>
+                  </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item api-key-row">
+                <div class="layui-inline">
+                  <label class="layui-form-label" style="width:190px;">读邮件密钥(无密码)</label>
+                  <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" placeholder="获取中" class="layui-input" id="read_email_key2" readonly>
+                  </div>
+                  <div class="layui-form-mid" style="padding: 0!important;"> 
+                    <button class="layui-btn read_key-btn" name="read_email_key2">重置</button>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item api-key-row">
+                <div class="layui-inline">
+                  <label class="layui-form-label" style="width:190px;">删邮件密钥</label>
+                  <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" placeholder="获取中" class="layui-input" id="delete_emails_key" readonly>
+                  </div>
+                  <div class="layui-form-mid" style="padding: 0!important;"> 
+                    <button class="layui-btn read_key-btn" name="delete_emails_key">重置</button>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item api-key-row">
+                <div class="layui-inline">
+                  <label class="layui-form-label" style="width:190px;">查域名密钥</label>
+                  <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" placeholder="获取中" class="layui-input" id="queryDomainName_key" readonly>
+                  </div>
+                  <div class="layui-form-mid" style="padding: 0!important;"> 
+                    <button class="layui-btn read_key-btn" name="queryDomainName_key">重置</button>
+                  </div>
+                </div>
+            </div>
+
+            <section class="api-global-settings" aria-label="API 全局设置">
+                <div class="layui-form-item api-key-row api-setting-row">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width:190px;" for="api-global-enabled-display">是否启用 API</label>
+                        <div class="layui-input-inline layui-input-wrap">
+                            <input type="text" id="api-global-enabled-display" class="layui-input" value="正在读取…" readonly aria-label="当前 API 启用状态">
+                        </div>
+                        <div class="layui-form-mid" style="padding:0!important;">
+                            <button type="button" class="layui-btn" id="api-global-settings-open">设置</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item api-key-row api-setting-row">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width:190px;" for="api-global-max-emails-display">API最多显示邮件数量</label>
+                        <div class="layui-input-inline layui-input-wrap">
+                            <input type="text" id="api-global-max-emails-display" class="layui-input" value="正在读取…" readonly aria-label="美化网页最多显示邮件数量">
+                        </div>
+                        <div class="layui-form-mid" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="layui-form-item api-key-actions">
+                <button class="layui-btn layui-bg-blue" id="jkwd-btn">API 接口文档</button>
+                <button class="layui-btn" id="read-email-api-btn">读邮件 API</button>
+            </div>
+
+
+            <div class="layui-form-item" style="display: none;">
+                <div class="layui-inline">
+                    <button class="layui-btn" id="queryMailKey-btn">查询API密钥</button>
+                </div>                  
+            </div>
+
+        </div>
+    </div>
+
+
+        <script src="/admin/cssjs/page5-part1.js?v=20261107-local-api-doc1"></script>
+        
+        
+        <script src="/admin/cssjs/page5-part2.js"></script>
+</body>
+
+
+
+</html>

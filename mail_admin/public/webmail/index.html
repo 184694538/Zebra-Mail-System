@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <script src="/theme/theme-loader.js?v=20261106-2" data-scope="webmail"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>斑马邮箱.web</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261106-2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=20261106-2">
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" href="./webmail.css?v=20261107-toastfix2">
+  <link rel="stylesheet" href="/theme/colors.css?v=20261106-1">
+</head>
+<body>
+  <!-- 默认只显示启动状态，直到服务端确认当前登录状态 -->
+  <div id="boot-screen" class="boot-screen" role="status" aria-live="polite">
+    <span class="boot-spinner" aria-hidden="true"></span>
+    <span>正在验证登录状态…</span>
+  </div>
+  <section id="login-screen" class="login-screen" hidden>
+    <div class="login-card">
+      <div class="brand-mark login-brand" aria-label="斑马邮箱"><img src="/favicon.webp?v=20261106-2" alt="斑马邮箱"></div>
+      <div class="login-title">登录斑马邮箱</div>
+      <div class="login-subtitle">使用你的邮箱地址和密码继续</div>
+      <form id="login-form" autocomplete="on">
+        <div class="login-field">
+          <label class="field-prefix" for="login-email">邮箱账户</label>
+          <input id="login-email" class="layui-input" type="email" name="email" placeholder="请输入邮箱账户" autocomplete="username" required>
+        </div>
+        <div class="login-field">
+          <label class="field-prefix" for="login-password">邮箱密码</label>
+          <input id="login-password" class="layui-input" type="password" name="password" placeholder="请输入邮箱密码" autocomplete="current-password" required>
+        </div>
+        <button id="login-submit" class="primary-button full-button" type="submit">登录</button>
+      </form>
+      <div class="login-alt-actions"><button id="login-change-password" class="login-password-link" type="button" hidden>修改邮箱密码</button></div>
+      <div id="login-error" class="login-error" role="alert"></div>
+      <div class="login-footnote">安全连接 · 仅访问当前邮箱</div>
+    </div>
+  </section>
+
+  <div id="mail-app" class="mail-app" hidden>
+    <header class="topbar">
+      <div class="topbar-brand"><span class="brand-mark small brand-logo" aria-hidden="true"><img src="/favicon.webp?v=20261106-2" alt=""></span><span>斑马邮箱</span></div>
+      <div class="topbar-search">
+        <i class="layui-icon layui-icon-search"></i>
+        <input id="search-input" type="search" placeholder="搜索邮件">
+        <button id="search-clear" class="icon-button" type="button" title="清除搜索"><i class="layui-icon layui-icon-close"></i></button>
+      </div>
+      <div class="topbar-user">
+        <div class="current-account" aria-label="当前登录邮箱">
+          <i class="layui-icon layui-icon-username account-icon" aria-hidden="true"></i>
+          <div class="current-account-details">
+            <span class="account-label">当前登录邮箱</span>
+            <span id="user-email" class="user-email"></span>
+          </div>
+        </div>
+        <button id="password-open" class="icon-button" type="button" title="修改密码"><i class="layui-icon layui-icon-set"></i></button>
+        <button id="logout-button" class="icon-button" type="button" title="退出邮箱"><i class="layui-icon layui-icon-logout"></i></button>
+      </div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <button id="compose-open" class="compose-button" type="button"><i class="layui-icon layui-icon-edit"></i> 写邮件</button>
+        <div class="sidebar-caption">邮箱文件夹</div>
+        <nav id="folder-list" class="folder-list" aria-label="邮件文件夹"></nav>
+        <div class="sidebar-bottom"><span class="status-dot"></span> 邮件服务已连接</div>
+      </aside>
+
+      <main class="mail-main">
+        <section class="message-panel">
+          <div class="panel-heading">
+            <div>
+              <h1 id="folder-title">收件箱</h1>
+              <div id="message-count" class="muted-caption">正在加载邮件…</div>
+            </div>
+            <button id="refresh-button" class="icon-button" type="button" title="刷新"><i class="layui-icon layui-icon-refresh"></i></button>
+          </div>
+          <div id="message-list" class="message-list" aria-live="polite">
+            <div class="empty-state">正在加载…</div>
+          </div>
+          <div class="list-pagination">
+            <button id="page-prev" class="icon-button" type="button" title="上一页"><i class="layui-icon layui-icon-left"></i></button>
+            <span id="page-label">1 / 1</span>
+            <button id="page-next" class="icon-button" type="button" title="下一页"><i class="layui-icon layui-icon-right"></i></button>
+          </div>
+        </section>
+
+        <section id="reader-panel" class="reader-panel">
+          <div class="reader-empty">
+            <div class="reader-empty-icon"><i class="layui-icon layui-icon-email"></i></div>
+            <div class="reader-empty-title">选择一封邮件</div>
+            <div class="reader-empty-text">邮件内容将在这里显示</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="compose-dialog" class="app-dialog compose-dialog">
+    <form id="compose-form" method="dialog">
+      <div class="dialog-heading"><strong id="compose-title">写邮件</strong><button class="icon-button" type="button" data-close="compose-dialog"><i class="layui-icon layui-icon-close"></i></button></div>
+      <div class="compose-fields">
+        <input id="compose-to" class="layui-input" type="text" placeholder="收件人（多个地址用逗号分隔）">
+        <input id="compose-cc" class="layui-input" type="text" placeholder="抄送（可选）">
+        <input id="compose-bcc" class="layui-input" type="text" placeholder="密送（可选）">
+        <input id="compose-subject" class="layui-input" type="text" placeholder="邮件主题">
+      </div>
+      <div id="compose-body" class="compose-editor" contenteditable="true" data-placeholder="写点什么…"></div>
+      <div class="compose-attachments"><label class="attach-button" for="compose-files"><i class="layui-icon layui-icon-attach"></i> 添加附件</label><input id="compose-files" type="file" multiple><span id="attachment-names" class="attachment-names"></span></div>
+      <div class="dialog-actions"><button id="draft-button" class="secondary-button" type="button">保存草稿</button><span class="action-spacer"></span><button class="secondary-button" type="button" data-close="compose-dialog">取消</button><button id="send-button" class="primary-button" type="submit"><i class="layui-icon layui-icon-release"></i> 发送</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="password-dialog" class="app-dialog password-dialog">
+    <form id="password-form" method="dialog">
+      <div class="dialog-heading"><strong>修改邮箱密码</strong><button class="icon-button" type="button" data-close="password-dialog"><i class="layui-icon layui-icon-close"></i></button></div>
+      <label class="field-label" for="password-email">邮箱账号</label>
+      <input id="password-email" class="layui-input" type="email" autocomplete="username" placeholder="name@example.com" required maxlength="254">
+      <label class="field-label" for="old-password">原邮箱密码</label><input id="old-password" class="layui-input" type="password" autocomplete="current-password" required>
+      <label class="field-label" for="new-password">新密码（8–128 位，英文字母/数字/@/.）</label><input id="new-password" class="layui-input" type="password" autocomplete="new-password" minlength="8" maxlength="128" pattern="[A-Za-z0-9@.]+" required>
+      <label class="field-label" for="confirm-password">确认新密码</label><input id="confirm-password" class="layui-input" type="password" autocomplete="new-password" minlength="8" maxlength="128" pattern="[A-Za-z0-9@.]+" required>
+      <div class="dialog-actions"><span class="action-spacer"></span><button class="secondary-button" type="button" data-close="password-dialog">取消</button><button id="password-submit" class="primary-button" type="submit">保存密码</button></div>
+    </form>
+  </dialog>
+
+  <script src="../layui/js/layui.js"></script>
+  <script src="/login-crypto/login-crypto.js?v=20261106-v2"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jedisct1/libsodium.js@0.7.15/dist/browsers/sodium.js" onerror="window.LoginCrypto.libraryFailed()"></script>
+  <script src="./webmail.js?v=20261107-toastfix2"></script>
+</body>
+</html>

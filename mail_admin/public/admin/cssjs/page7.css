@@ -1,0 +1,12 @@
+/* 只给新设置页定义布局，不修改现有页面结构 */
+.theme-settings-wrap{max-width:850px;margin:0 auto;display:grid;gap:18px}
+.theme-settings-card{background:#eff4fa;border:1px solid #b8c8d9;border-radius:14px;padding:22px 26px;color:#263f5c}
+.theme-settings-card h2{font-size:17px;font-weight:700;margin:0 0 20px;color:inherit}
+.theme-setting-row{display:flex;align-items:center;gap:16px;margin:0 0 14px}
+.theme-setting-row label{width:155px;flex:none;font-size:13px;font-weight:600;color:inherit}
+.theme-setting-row select,.theme-setting-row .layui-input{width:100%;flex:1;min-width:0;max-width:500px;height:38px;background:#fff;border:1px solid #b8c8d9;border-radius:8px;padding:0 10px;color:#263f5c;font-size:13px}
+.theme-hint{font-size:12px;color:#6b7f94;line-height:1.7;margin:8px 0 16px}
+.theme-settings-card .layui-btn{background:#315e91;border-radius:8px}
+.setting-feedback{margin-left:10px;font-size:12px;line-height:1.5;color:#2b7758}
+.setting-feedback.error{color:#bc4b4b}
+@media(max-width:650px){.theme-settings-card{padding:17px}.theme-setting-row{display:block}.theme-setting-row label{display:block;width:auto;margin-bottom:7px}.setting-feedback{display:block;margin:10px 0 0}}

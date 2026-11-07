@@ -1,0 +1,42 @@
+/* 设置页面容器高度为100vh，使用flexbox来居中内容 */
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .layui-container {
+            display: flex;
+            justify-content: center;
+            /* 水平居中 */
+            align-items: center;
+            /* 垂直居中 */
+            height: 100vh;
+            /* 高度占满整个视口 */
+        }
+
+        .admin-info {
+            text-align: center;
+            /* 内容居中 */
+            width: 400px;
+            /* 固定宽度 */
+            padding: 20px;
+            padding-top: 50px;   /* 设置顶部内边距 */
+            padding-bottom: 50px; /* 设置底部内边距 */
+            /* 内边距增加空间 */
+            background-color: rgba(12, 12, 12, 0.2);
+            /* 半透明黑色背景 */
+            border-radius: 8px;
+            /* 圆角效果 */
+            color: #070707;
+            /* 文字颜色设置为白色，以便与半透明背景对比 */
+        }
+
+        .layui-input-group {
+            width: 100%;
+        }
+
+        .layui-input-split {
+            width: 120px;
+            /* 前缀宽度 */
+        }

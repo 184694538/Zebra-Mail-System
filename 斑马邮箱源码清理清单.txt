@@ -1,0 +1,85 @@
+# 斑马邮箱源码清理清单（GitHub 全量部署版）
+
+## GitHub 仓库目录结构
+
+斑马邮箱系统/
+├── .git/（本地 Git 元数据）
+├── .gitattributes
+├── .gitignore
+├── README.md
+├── LICENSE（AGPLv3）
+└── mail_admin/
+    ├── app/
+    ├── config/
+    ├── config_private/
+    ├── public/
+    ├── setup/
+    ├── vendor/
+    ├── composer.json
+    └── composer.lock
+
+注意：保留 mail_admin/ 这一层，不要把应用文件移动到仓库根目录。
+
+## 删除文件
+
+- mail_admin/runtime/ 中的日志、缓存和运行时生成文件（保留 .gitignore）
+- mail_admin/backups/ 中的实际备份和临时文件（保留 .gitignore）
+- mail_admin/config_private/ 中的会话、限流、临时锁、运行时私有密钥和实际配置（保留 .gitignore）
+- 已确认无引用的旧版页面、旧版专属 JS/CSS 和未使用语言文件
+- 过时的临时修复文件及内部测试文件（确认用途后再删除）
+
+## 修改文件
+
+mail_admin/config/database.php
+- 数据库密码置空。
+- 保留现有 PHP 数组读取方式，不强制改为 .env。
+- 用户部署时自行填写真实数据库密码，禁止将真实密码提交到公开仓库。
+
+mail_admin/setup/config_private/mail.php.example
+- 所有邮件 API 密钥保持空值。
+- 作为首次部署的安全模板。
+
+mail_admin/setup/config_private/mail_api_settings.json.example
+- enabled=false。
+- manual_enabled=false。
+- API 默认关闭；配置密钥后仍需管理员手动启用。
+
+mail_admin/setup/config_private/admin_auth.php.example
+- 初始账号 admin。
+- 初始密码 123456。
+- 首次登录必须强制修改密码。
+
+.gitignore
+- 排除私有配置、日志、备份、会话和临时运行数据。
+- 不得忽略 mail_admin/vendor/。
+- 保留并提交 mail_admin/composer.lock。
+
+README.md
+- 说明 mail_admin/ 是应用目录。
+- 网站根目录指向 mail_admin/public/。
+- 明确说明 vendor 已包含，部署无需 Composer。
+
+LICENSE
+- 使用 GNU AGPLv3。
+- 保留第三方组件自己的许可证文件和声明。
+
+## GitHub 全量发布规则
+
+- mail_admin/vendor/ 必须完整上传 GitHub。
+- mail_admin/composer.json 和 mail_admin/composer.lock 必须保留。
+- 不公开真实数据库密码、管理员密码、API 密钥、Token、会话文件、日志和备份。
+- 根目录 README.md、LICENSE、.gitignore 与 mail_admin/ 一并提交。
+- 不要把 .git/ 当作普通项目源码上传；它仅是本地 Git 元数据。
+
+## 清理要求
+
+1. 不修改数据库结构。
+2. 不修改现有数据库读取方式。
+3. 不影响现有业务功能。
+4. 保留首次登录强制修改默认密码。
+5. 保留 API 默认关闭机制。
+6. 确保自动生成文件可以重新生成。
+7. 删除前检查文件引用关系。
+8. 最终生成保留上述目录结构的完整 ZIP。
+
+注意：清理只针对发布副本，不直接删除生产服务器的运行数据。

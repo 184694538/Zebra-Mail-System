@@ -1,0 +1,100 @@
+body.admin-subpage { padding-bottom: 25px; }
+.backup-section { margin: 12px 0 18px; padding: 15px 17px; border: 1px solid var(--admin-border, #d6dce5); border-radius: 10px; background: var(--admin-panel-bg, rgba(128,128,128,0.04)); }
+.backup-section-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 13px; flex-wrap: wrap; }
+.backup-section-head strong { font-size: 15px; font-weight: 650; }
+.backup-section-head span { font-size: 12px; opacity: .74; }
+.backup-create-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+.backup-create-actions .layui-btn { margin: 0; }
+.backup-hint { margin: 10px 0 0; line-height: 1.65; font-size: 12px; opacity: .8; }
+.backup-filters { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+.backup-filters #backupSearch { width: min(320px, 100%); flex: 1 1 180px; }
+.backup-filters #backupType { width: 155px; flex: 0 0 auto; }
+.backup-filters .layui-btn { margin: 0; }
+.backup-table-toolbar { display: flex; gap: 8px; }
+.backup-table-toolbar .layui-btn { margin: 0; }
+.backup-filename { overflow-wrap: anywhere; font-weight: 550; }
+.backup-warning { margin-top: 4px; line-height: 1.5; color: #d66a27; font-size: 11px; }
+.backup-modal-tip { line-height: 1.8; padding: 10px 4px; }
+.backup-mail-paths { padding: 8px; margin: 10px 0; border-radius: 5px; font-size: 12px; white-space: pre-wrap; background: rgba(127,127,127,.10); }
+@media (max-width: 700px) { .backup-section { padding: 10px; } .backup-create-actions .layui-btn { flex: 1 1 150px; } }
+
+
+/* 备份表格自适应：取消 full-300 固定高度后，空表不再占满页面。 */
+.backup-section, .backup-list-section { box-sizing: border-box; min-width: 0; max-width: 100%; }
+.backup-list-section .layui-table-view { box-sizing: border-box; width: 100%; max-width: 100%; }
+/* 多行文件名和邮件迁移提醒完整显示，不撑宽表格。 */
+.backup-list-section .layui-table-view .layui-table-body .layui-table-cell {
+  height: auto;
+  min-height: 28px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.backup-list-section .layui-table-view .layui-table-body td { vertical-align: middle; }
+.backup-list-section .backup-filename { white-space: normal; overflow-wrap: anywhere; }
+.backup-list-section .backup-warning { white-space: normal; overflow-wrap: anywhere; }
+.backup-list-section .layui-table-view .layui-table-tool { min-height: 54px; }
+.backup-list-section .layui-table-view .layui-table-main { max-height: none; }
+@media (max-width: 880px) {
+  .backup-list-section .layui-table-view .layui-table-main { overflow-x: auto; }
+  .backup-list-section .layui-table-view .layui-table-body .layui-table-cell { padding-top: 6px; padding-bottom: 6px; }
+}
+/* 宽屏下 Layui 的 1px 边框舍入误差也会生成横向滚动条；
+   小屏依旧保留真正需要的横向滚动，避免隐藏列。 */
+@media (min-width: 1000px) {
+  .backup-list-section .layui-table-view .layui-table-main { overflow-x: hidden; }
+}
+
+
+/* 操作列：所有行同一左起点，详情也使用按钮，避免单按钮被居中造成错位。 */
+.backup-list-section .backup-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  min-height: 24px;
+  white-space: nowrap;
+}
+.backup-list-section .backup-row-actions .layui-btn {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Database cleanup is intentionally visually distinct from backup creation. */
+.backup-cleanup-btn { margin-left: 8px !important; }
+.backup-cleanup-hint { color: #ca5d37; opacity: 1; }
+.backup-cleanup-confirm { padding: 12px 15px 2px; line-height: 1.85; }
+.backup-cleanup-confirm b { font-weight: 700; }
+.backup-cleanup-confirm .backup-cleanup-warning { color: #c64735; font-weight: 650; }
+.backup-cleanup-confirm .backup-cleanup-check { margin: 10px 0; display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
+.backup-cleanup-confirm .backup-cleanup-check input { margin-top: 6px; }
+.backup-cleanup-confirm .backup-cleanup-input { margin-top: 8px; }
+@media (max-width: 700px) { .backup-cleanup-btn { margin-left: 0 !important; } }
+
+
+/* 数据库备份上传弹窗 */
+.backup-upload-dialog { padding: 18px 20px 20px; }
+.backup-upload-drop { display: flex; min-height: 150px; flex-direction: column; align-items: center; justify-content: center; gap: 9px; padding: 18px; border: 1px dashed var(--admin-border, #aab4c2); border-radius: 9px; background: var(--admin-panel-bg, rgba(128,128,128,.05)); cursor: pointer; text-align: center; transition: border-color .15s, background .15s; }
+.backup-upload-drop .layui-icon { font-size: 32px; color: var(--admin-accent, #2878d0); }
+.backup-upload-drop strong { font-size: 14px; font-weight: 600; }
+.backup-upload-drop span { color: var(--admin-muted, #7b8491); font-size: 12px; }
+.backup-upload-drop.is-dragover { border-color: var(--admin-accent, #2878d0); background: rgba(40,120,208,.08); }
+.backup-upload-file-info { margin: 12px 0 8px; min-height: 22px; font-size: 12px; overflow-wrap: anywhere; }
+.backup-upload-progress { height: 7px; overflow: hidden; border-radius: 10px; background: rgba(127,127,127,.18); }
+.backup-upload-progress > div { width: 0; height: 100%; border-radius: inherit; background: var(--admin-accent, #2878d0); transition: width .12s linear; }
+.backup-upload-status { margin-top: 9px; min-height: 38px; color: var(--admin-muted, #7b8491); font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
+.backup-upload-status.is-error { color: #d14b42; }
+.backup-upload-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.backup-upload-actions .layui-btn { margin: 0; }
+.backup-upload-actions .layui-btn[disabled] { opacity: .55; cursor: not-allowed; }
+@media (max-width: 520px) { .backup-upload-dialog { padding: 12px; } .backup-upload-drop { min-height: 125px; } }

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261106-1">
+  <meta charset="utf-8">
+  <script src="/theme/theme-loader.js?v=20261106-2" data-scope="admin"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <title>斑马邮箱 · 管理后台</title>
+  <link href="/layui/css/layui.css" rel="stylesheet">
+  <link href="/admin/cssjs/admin-ui.css?v=20261106-icon1" rel="stylesheet">
+  <script src="/layui/js/layui.js"></script>
+
+  <script src="/admin/cssjs/admin-auth.js?v=20261106-backup-authfix1"></script>
+  <script src="/admin/cssjs/index-part1.js"></script>
+  <link rel="stylesheet" href="/theme/colors.css?v=20261106-dark-toolbar5">
+</head>
+<body class="admin-shell">
+<div class="layui-layout layui-layout-admin" id="adminLayout" style="display:none">
+  <header class="layui-header admin-header">
+    <!-- 菜单折叠与平台切换位于同一布局容器，随侧边栏一起移动 -->
+    <ul class="layui-nav layui-layout-left admin-header-left">
+      <li class="layui-nav-item" lay-unselect>
+        <a href="javascript:toggleIcon();" class="sidebar-toggle" id="sidebarToggle" aria-label="展开或收起菜单" title="展开或收起菜单">
+          <i class="layui-icon layui-icon-shrink-right" id="toggleIcon" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item platform-switch-item" lay-unselect>
+        <a class="platform-switch" href="/hmailadmin/" target="_top" title="切换至邮局服务管理" aria-label="切换至邮局服务管理">
+          <i class="layui-icon layui-icon-transfer" aria-hidden="true"></i><span>邮局服务管理</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right admin-header-right">
+      <li class="layui-nav-item admin-header-label layui-hide-xs" lay-unselect><span><i class="layui-icon layui-icon-auz" aria-hidden="true"></i> 管理员工作台</span></li>
+      <li class="layui-nav-item" lay-unselect><a href="javascript:screen_full();" class="header-icon-btn" title="全屏模式" aria-label="切换全屏"><i class="layui-icon layui-icon-screen-full" id="screen_full"></i></a></li>
+      <li class="layui-nav-item" lay-unselect><a href="javascript:logout();" class="header-icon-btn logout-btn" title="安全退出" aria-label="退出登录"><i class="layui-icon layui-icon-logout"></i></a></li>
+    </ul>
+  </header>
+
+  <aside class="layui-side" id="sideScroll" aria-label="主后台菜单">
+    <div class="layui-side-scroll">
+      <div class="sidebar-brand">
+        <img class="sidebar-logo" src="/favicon.webp?v=20261106-1" alt="" aria-hidden="true" width="43" height="43">
+        <span class="sidebar-brand-text"><strong>斑马邮箱</strong><small>邮件业务管理平台</small></span>
+      </div>
+      <div class="sidebar-menu-scroll">
+      <div class="side-section-title">业务管理</div>
+      <ul class="layui-nav layui-nav-tree admin-nav" lay-filter="adminPages">
+        <li class="layui-nav-item zc"><a href="javascript:;" data-page="/admin/page1" data-title="域名管理" data-desc="管理邮件域名和域名列表"><i class="layui-icon layui-icon-website"></i><span class="nav-text">域名管理</span></a></li>
+        <li class="layui-nav-item zc layui-this"><a href="javascript:;" data-page="/admin/page2" data-title="邮箱管理" data-desc="查询、修改和管理邮箱账户"><i class="layui-icon layui-icon-email"></i><span class="nav-text">邮箱管理</span></a></li>
+        <li class="layui-nav-item zc"><a href="javascript:;" data-page="/admin/page3" data-title="添加邮箱" data-desc="新增账户并查看生成记录"><i class="layui-icon layui-icon-add-circle"></i><span class="nav-text">添加邮箱</span></a></li>
+      </ul>
+      <div class="side-section-title">系统管理</div>
+      <ul class="layui-nav layui-nav-tree admin-nav" lay-filter="adminSettings">
+        <li class="layui-nav-item zc"><a href="javascript:;" data-page="/admin/page4" data-title="邮箱与系统设置" data-desc="镜像邮箱、服务器 IP 与端口状态"><i class="layui-icon layui-icon-set"></i><span class="nav-text">邮箱与系统设置</span></a></li>
+        <li class="layui-nav-item zc"><a href="javascript:;" data-page="/admin/page5" data-title="API 管理" data-desc="接口密钥和访问说明"><i class="layui-icon layui-icon-key"></i><span class="nav-text">API 管理</span></a></li>
+        <li class="layui-nav-item zc"><a href="javascript:;" data-page="/admin/page6" data-title="数据库维护" data-desc="数据库备份、恢复、清理与结构维护"><i class="layui-icon layui-icon-template-1"></i><span class="nav-text">数据库维护</span></a></li>
+      </ul>
+      </div>
+      <div class="sidebar-footer">
+        <span class="sidebar-footer-icon"><i class="layui-icon layui-icon-auz" aria-hidden="true"></i></span>
+        <span class="sidebar-footer-text">安全登录<small id="sidebarAppVersion" hidden></small></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+  <main class="layui-body admin-workspace" id="subject">
+    <div class="workspace-frame-wrap"><iframe id="contentFrame" title="业务管理内容" loading="eager"></iframe></div>
+    <footer class="workspace-footer">斑马邮箱 <span>·</span> 统一邮件管理工作台 <span id="footerTechSupport" hidden></span></footer>
+  </main>
+</div>
+
+<script src="/admin/cssjs/index-part2.js?v=20261107-app-version3"></script>
+</body>
+</html>

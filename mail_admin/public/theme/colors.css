@@ -1,0 +1,426 @@
+/* 斑马邮箱主题：仅重写配色，不修改布局、尺寸、间距或结构。
+   原有默认：admin 商务雾蓝、webmail 深海夜航，不加载覆盖规则。 */
+
+html[data-admin-theme="layui_night"],html[data-webmail-theme="layui_night"]{
+  --z-bg:#1b1e22;
+  --z-panel:#292d32;
+  --z-sidebar:#24282d;
+  --z-header:#23272b;
+  --z-accent:#16baaa;
+  --z-ink:#e6e8eb;
+  --z-muted:#acb6bf;
+  --z-border:#46515a;
+  --z-label:#343b42;
+  --z-hover:#303c41;
+  --z-input:#0d1818;
+  --z-reader:#161b1e;
+  --z-side-ink:#edf2f4;
+  --z-onaccent:#ffffff;
+  --z-onaccent:#102725;
+}
+
+html[data-admin-theme="layui_day"],html[data-webmail-theme="layui_day"]{
+  --z-bg:#f4f5f7;
+  --z-panel:#ffffff;
+  --z-sidebar:#ffffff;
+  --z-header:#f7f8fa;
+  --z-accent:#16a394;
+  --z-ink:#263238;
+  --z-muted:#65747d;
+  --z-border:#d7dfe5;
+  --z-label:#edf2f4;
+  --z-hover:#e1f4f0;
+  --z-input:#ffffff;
+  --z-reader:#f5f7f8;
+  --z-side-ink:#274044;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="business_blue"],html[data-webmail-theme="business_blue"]{
+  --z-bg:#d3dfec;
+  --z-panel:#eff4fa;
+  --z-sidebar:#15243c;
+  --z-header:#eff4fa;
+  --z-accent:#315e91;
+  --z-ink:#263f5c;
+  --z-muted:#61758c;
+  --z-border:#b8c8d9;
+  --z-label:#e2eaf4;
+  --z-hover:#d5e5f5;
+  --z-input:#ffffff;
+  --z-reader:#ffffff;
+  --z-side-ink:#bdcde0;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="deep_ocean"],html[data-webmail-theme="deep_ocean"]{
+  --z-bg:#151a1e;
+  --z-panel:#232e35;
+  --z-sidebar:#1c252b;
+  --z-header:#1a2227;
+  --z-accent:#258cbd;
+  --z-ink:#edf5f9;
+  --z-muted:#a8bbc8;
+  --z-border:#354650;
+  --z-label:#30424c;
+  --z-hover:#1b4359;
+  --z-input:#222e36;
+  --z-reader:#20292e;
+  --z-side-ink:#dcebf2;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="cloud_white"],html[data-webmail-theme="cloud_white"]{
+  --z-bg:#f8fafc;
+  --z-panel:#ffffff;
+  --z-sidebar:#f2f5f9;
+  --z-header:#ffffff;
+  --z-accent:#4078d4;
+  --z-ink:#253449;
+  --z-muted:#6b7d90;
+  --z-border:#dbe3ee;
+  --z-label:#e9eff8;
+  --z-hover:#e6eefc;
+  --z-input:#ffffff;
+  --z-reader:#ffffff;
+  --z-side-ink:#445a76;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="graphite"],html[data-webmail-theme="graphite"]{
+  --z-bg:#121416;
+  --z-panel:#242629;
+  --z-sidebar:#1d2023;
+  --z-header:#1e2125;
+  --z-accent:#788da3;
+  --z-ink:#f0f1f3;
+  --z-muted:#b2bdc6;
+  --z-border:#454b53;
+  --z-label:#30363c;
+  --z-hover:#354452;
+  --z-input:#202428;
+  --z-reader:#282e34;
+  --z-side-ink:#dce5ed;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="teal"],html[data-webmail-theme="teal"]{
+  --z-bg:#e8f5f3;
+  --z-panel:#ffffff;
+  --z-sidebar:#d9eee9;
+  --z-header:#ffffff;
+  --z-accent:#168e83;
+  --z-ink:#204b4a;
+  --z-muted:#527879;
+  --z-border:#b5d8d1;
+  --z-label:#d7ebe6;
+  --z-hover:#d8f2e9;
+  --z-input:#ffffff;
+  --z-reader:#ffffff;
+  --z-side-ink:#285f59;
+  --z-onaccent:#ffffff;
+}
+
+html[data-admin-theme="sand"],html[data-webmail-theme="sand"]{
+  --z-bg:#f3eee4;
+  --z-panel:#fffbf3;
+  --z-sidebar:#e9e0d1;
+  --z-header:#f9f2e8;
+  --z-accent:#93704c;
+  --z-ink:#514739;
+  --z-muted:#887b6e;
+  --z-border:#d5c9b6;
+  --z-label:#eee3d4;
+  --z-hover:#e9ddca;
+  --z-input:#fffdf8;
+  --z-reader:#fffbf3;
+  --z-side-ink:#6c5440;
+  --z-onaccent:#ffffff;
+}
+
+/* 管理后台主页面、登录页及 iframe 子页面：仅颜色 */
+html[data-admin-theme]:not([data-admin-theme="business_blue"]){
+  --ui-bg:var(--z-bg);--ui-card:var(--z-panel);--ui-ink:var(--z-ink);--ui-border:var(--z-border);
+  color-scheme:light;
+}
+html[data-admin-theme="layui_night"],html[data-admin-theme="deep_ocean"],html[data-admin-theme="graphite"]{color-scheme:dark}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) body.admin-shell,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) body.admin-subpage,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) body.login-screen{background:var(--z-bg)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-layout-admin .layui-header{background:var(--z-header)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-side,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-side-scroll{background:var(--z-sidebar)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item a{color:var(--z-side-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item a .layui-icon,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .sidebar-brand-text small,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .side-section-title{color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .sidebar-brand-text strong,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .sidebar-footer,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item a:hover{color:var(--z-side-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item a:hover{background:var(--z-hover)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item.layui-this>a{background:var(--z-accent)!important;color:var(--z-onaccent)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .admin-nav .layui-nav-item.layui-this>a .layui-icon{color:var(--z-onaccent)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-header .platform-switch{background:var(--z-accent)!important;border-color:var(--z-accent)!important;color:var(--z-onaccent)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-header .sidebar-toggle,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-header .header-icon-btn{background:var(--z-label)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-header .admin-header-label,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .workspace-footer{color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .layui-body,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell .workspace-frame-wrap,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-shell #contentFrame{background:var(--z-bg)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-heading{border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-heading h1,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .admin-info,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-heading-copy{color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-heading p,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-eyebrow,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .mirror-hint{color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .subpage-heading-icon,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-label,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-input-group .layui-input-split{background:var(--z-label)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage > form.layui-form,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .admin-info,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .center-translucent-container,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .theme-settings-card,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .login-card{background:var(--z-panel)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-item,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .center-translucent-container .layui-form-item{border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-input,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-textarea,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage select,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-select-title .layui-input,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .layui-input{background:var(--z-input)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-input::placeholder,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .layui-input::placeholder{color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-btn:not(.layui-btn-danger):not(.layui-bg-red):not(.layui-btn-disabled),
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .login-card .layui-btn{background:var(--z-accent)!important;color:var(--z-onaccent)!important;border-color:var(--z-accent)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-btn.layui-btn-primary{background:var(--z-label)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-view,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-main{background:var(--z-panel)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-view td,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table td{color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-header,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-header th,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table th,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-tool,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-page{background:var(--z-label)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-main tbody tr:nth-child(even){background:var(--z-bg)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-table-main tbody tr:hover{background:var(--z-hover)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-select dl,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-select dl dd{background:var(--z-panel)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-select dl dd:hover{background:var(--z-hover)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-select dl dd.layui-this,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .layui-form-checked[lay-skin=primary] i{background:var(--z-accent)!important;color:var(--z-onaccent)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .port-dialog,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .port-ip-row,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .port-table th{background:var(--z-panel)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .port-dialog-close{background:var(--z-label)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .login-title,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .layui-form-label{color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .login-subtitle,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .login-screen .login-eyebrow{color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .layui-layer{background:var(--z-panel)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .layui-layer-title,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .layui-layer-content{background:var(--z-panel)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .layui-layer-btn .layui-layer-btn0{background:var(--z-accent)!important;color:var(--z-onaccent)!important;border-color:var(--z-accent)!important}
+
+/* 用户端：只替换颜色，保留现有 Webmail 布局和登录页结构 */
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]){
+ --bg:var(--z-bg);--panel:var(--z-panel);--line:var(--z-border);--text:var(--z-ink);
+ --muted:var(--z-muted);--primary:var(--z-accent);--primary-soft:var(--z-hover);--hover:var(--z-hover);
+ color-scheme:light;
+}
+html[data-webmail-theme="layui_night"],html[data-webmail-theme="graphite"]{color-scheme:dark}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) body,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-screen,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .mail-app,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .mail-main{background:var(--z-bg)!important;color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-card,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .sidebar,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-panel,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-panel,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .app-dialog{background:var(--z-panel)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .sidebar{background:var(--z-sidebar)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .panel-heading,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-toolbar,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .list-pagination{background:var(--z-header)!important;border-color:var(--z-border)!important;color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar-brand,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-title,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-subject,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-empty-title,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .panel-heading h1,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-from,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-subject,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-body,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-meta,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .meta-from,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .dialog-heading{color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-subtitle,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .field-label,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-footnote,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .sidebar-caption,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-date,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .muted-caption,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-empty,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .meta-detail,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .meta-date{color:var(--z-muted)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .layui-input,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar-search,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar-search input,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .current-account{background:var(--z-input)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .topbar-search input::placeholder,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .layui-input::placeholder{color:var(--z-muted)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .current-account .user-email,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .account-label{color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .folder-item{color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .folder-item .layui-icon{color:var(--z-muted)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .folder-item:hover,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-row:hover{background:var(--z-hover)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .folder-item.active,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-row.active{background:var(--z-hover)!important;color:var(--z-accent)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .compose-button,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .primary-button{background:var(--z-accent)!important;color:var(--z-onaccent)!important;border-color:var(--z-accent)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .secondary-button,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .icon-button{background:var(--z-label)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .message-row,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-meta,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .login-footnote,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .dialog-heading,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .attachment-list{border-color:var(--z-border)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-empty-icon,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .avatar{background:var(--z-label)!important;color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-content,
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .reader-body{background:var(--z-reader)!important;color:var(--z-ink)!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .app-dialog .compose-fields .layui-input{background:transparent!important}
+html[data-webmail-theme]:not([data-webmail-theme="deep_ocean"]) .boot-screen{background:var(--z-bg)!important;color:var(--z-muted)!important}
+
+/* 子页面额外状态区、API 弹窗：保持布局，只调整表面和说明文字颜色。 */
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .mail-password-toggle,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .api-global-settings,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .api-setting-row {background:var(--z-panel)!important;border-color:var(--z-border)!important;color:var(--z-ink)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage #mail-password-toggle-state,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .api-modal-label,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .api-modal-controls label,
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .mail-password-toggle-help {color:var(--z-muted)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .api-settings-modal .api-modal-controls .layui-input{background:var(--z-input)!important;color:var(--z-ink)!important;border-color:var(--z-border)!important}
+html[data-admin-theme]:not([data-admin-theme="business_blue"]) .admin-subpage .theme-settings-card .theme-hint{color:var(--z-muted)!important}
+
+/* 2026-11-06 dark-table fix: Layui adds classes on hover/selected rows.
+   Match both JS-applied classes and native :hover; keep palette-only changes. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .admin-subpage .layui-table tbody tr:is(:hover,.layui-table-hover,.layui-table-click,.layui-table-checked){
+  background-color:var(--z-hover)!important;
+  color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .admin-subpage .layui-table tbody tr:is(:hover,.layui-table-hover,.layui-table-click,.layui-table-checked)>td{
+  background-color:transparent!important;
+  color:var(--z-ink)!important;
+}
+/* Some Layui extensions apply state classes to a row wrapper outside .layui-table. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .admin-subpage .layui-table-view tbody tr:is(:hover,.layui-table-hover,.layui-table-click,.layui-table-checked){
+  background-color:var(--z-hover)!important;
+  color:var(--z-ink)!important;
+}
+
+
+/* 2026-11-06 deep theme v3: Layui dynamically adds hover/click/checked styles
+   to table rows. Scope this to actual dark palettes to keep light themes intact.
+   Includes fixed columns, nested cell backgrounds and tooltips/menu surfaces. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-view :is(.layui-table-main,.layui-table-body,.layui-table-fixed,.layui-table-fixed-l,.layui-table-fixed-r) {
+  background:var(--z-panel)!important;color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-view .layui-table tbody tr {
+  background:var(--z-panel)!important;color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-view .layui-table tbody tr:nth-child(even):not(:hover):not(.layui-table-hover):not(.layui-table-click):not(.layui-table-checked) {
+  background:var(--z-bg)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage :is(.layui-table-view,.layui-table) tbody tr:is(:hover,.layui-table-hover,.layui-table-click,.layui-table-checked),
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage :is(.layui-table-view,.layui-table) tbody tr:has(>td.layui-table-hover) {
+  background:var(--z-hover)!important;color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage :is(.layui-table-view,.layui-table) tbody tr > td {
+  background:transparent!important;
+  color:var(--z-ink)!important;
+  border-color:var(--z-border)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage :is(.layui-table-view,.layui-table) tbody tr :is(.layui-table-cell,.laytable-cell-checkbox,.layui-form-checkbox) {
+  background-color:transparent!important;color:var(--z-ink)!important;
+}
+/* Selected/hovered cells should never inherit a white background from plugin styles. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage :is(.layui-table-view,.layui-table) tbody tr:is(:hover,.layui-table-hover,.layui-table-click,.layui-table-checked) :is(td,.layui-table-cell) {
+  background-color:transparent!important;color:var(--z-ink)!important;
+}
+/* Layui uses non-table DOM for floating menus and table tips. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  :is(.layui-table-tips,.layui-table-tips-main,.layui-table-tips-c,.layui-table-grid-down,
+      .layui-table-tool-panel,.layui-table-tool-self,.layui-table-page,.layui-laypage,
+      .layui-laypage a,.layui-laypage span,.layui-layer .layui-layer-setwin,
+      .layui-form-select dl,.layui-dropdown-menu) {
+  background-color:var(--z-panel)!important;
+  color:var(--z-ink)!important;
+  border-color:var(--z-border)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .layui-table-tool-panel li:hover,
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .layui-dropdown-menu li:hover,
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .layui-table-tips-main:hover {
+  background-color:var(--z-hover)!important;color:var(--z-ink)!important;
+}
+/* Avoid white background of disabled/selected table checkboxes while retaining check icons. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  .admin-subpage .layui-table-view .layui-form-checkbox[lay-skin=primary] {
+  background:transparent!important;
+}
+
+
+/* Dark Layui table controls: rows and individual cells including nested fixed-column tables. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"]) body.admin-subpage
+  :is(.layui-table-view,.layui-table-body,.layui-table-main,.layui-table-fixed,.layui-table-box) :is(tr.layui-table-hover,tr.layui-table-click,tr.layui-table-checked,tr:hover,td.layui-table-hover,td.layui-table-click) {
+  background-color:var(--z-hover)!important;color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"]) body.admin-subpage
+  :is(.layui-table-view,.layui-table-body,.layui-table-main,.layui-table-fixed,.layui-table-box) :is(tr.layui-table-hover,tr.layui-table-click,tr.layui-table-checked,tr:hover) > td {
+  background-color:transparent!important;color:var(--z-ink)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"]) body.admin-subpage
+  :is(.layui-table-view,.layui-table-body,.layui-table-main,.layui-table-fixed,.layui-table-box) :is(tr.layui-table-hover,tr.layui-table-click,tr.layui-table-checked,tr:hover) > td :is(div,span,a,strong) {
+  color:inherit;
+}
+
+
+/* 2026-11-06: dark-mode Layui table toolbar icon contrast.
+   Layui hard-codes #333 on .layui-inline[lay-event], which is illegible
+   against dark table toolbar backgrounds.  Do not change geometry. */
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-tool .layui-table-tool-self .layui-inline[lay-event] {
+  color:var(--z-ink)!important;
+  background-color:var(--z-label)!important;
+  border-color:var(--z-border)!important;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-tool .layui-table-tool-self .layui-inline[lay-event] :is(.layui-icon,i,svg) {
+  color:var(--z-ink)!important;
+  fill:currentColor;
+}
+html:is([data-admin-theme="layui_night"],[data-admin-theme="deep_ocean"],[data-admin-theme="graphite"])
+  body.admin-subpage .layui-table-tool .layui-table-tool-self .layui-inline[lay-event]:is(:hover,:focus-visible) {
+  color:var(--z-ink)!important;
+  background-color:var(--z-hover)!important;
+  border-color:var(--z-accent)!important;
+}

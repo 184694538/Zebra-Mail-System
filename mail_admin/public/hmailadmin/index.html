@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hans" data-deck-mode="simple">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261106-1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>斑马邮箱 · 邮局服务管理</title>
+<link rel="stylesheet" href="/layui/css/layui.css">
+<link rel="stylesheet" href="./assets/deck.css?v=20261106-prefix1">
+<meta name="hmailadmin-build" content="20261106-zebra1">
+<style>
+.hmail-risk-banner{color:#ff505d!important;font-size:14px;font-weight:800;letter-spacing:.02em;white-space:nowrap;margin:0 12px;flex-shrink:0}
+@media(max-width:1050px){.hmail-risk-banner{font-size:12px;max-width:220px;white-space:normal;text-align:center}}
+@media(max-width:700px){.hmail-risk-banner{font-size:11px;max-width:148px;line-height:1.2;margin:0 4px}}
+</style>
+</head>
+<body data-deck-mode="simple">
+<a class="skip" href="#content">跳转至内容</a>
+
+<!-- The sign-in gate -->
+<div class="gate" id="gate" style="display:none">
+  <form class="login" id="loginForm" style="display:none">
+    <img class="logo" src="/favicon.webp?v=20261106-1" alt="斑马邮箱" width="48" height="48">
+    <h1>斑马邮箱</h1><p>邮局服务管理</p>
+    <p>使用管理员账户登录，密码只用于创建会话，不会保存在本页面。</p>
+    <div class="login-input-group"><label for="user">用户名</label><input id="user" placeholder="用户名" value="Administrator" autocomplete="username"></div>
+    <div class="login-input-group"><label for="pass">密码</label><input id="pass" type="password" placeholder="密码" autocomplete="current-password"></div>
+    <div class="login-input-group"><label for="otp">验证码</label><input id="otp" placeholder="一次性验证码" inputmode="numeric" autocomplete="one-time-code" hidden></div>
+    <button class="btn" type="submit">登录</button>
+    <button class="btn" type="button" id="passkeyBtn" hidden>使用通行密钥登录</button>
+    <button class="btn" type="button" id="ssoBtn" hidden></button>
+    <button class="btn" type="button" id="samlBtn" hidden></button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</div>
+
+<!-- The shell: a command bar across the top, then the navigation column
+     beside the content area, which is the frame the desktop console has. -->
+<div class="app" id="app" style="display:none">
+  <aside class="side" id="deckSide" aria-label="邮局服务管理菜单">
+      <div class="side-brand"><img class="side-logo" src="/favicon.webp?v=20261106-1" alt="" aria-hidden="true" width="38" height="38"><span class="side-brand-text"><strong>斑马邮箱</strong><small>邮局服务管理</small></span></div>
+      <nav class="nav" id="nav">
+        
+        <section class="nav-group" data-nav-group><button type="button" class="nav-heading nav-group-toggle" id="deckNavHead1" aria-controls="deckNavSub1" aria-expanded="true"><span class="nav-group-label">概览</span><span class="nav-group-arrow" aria-hidden="true">›</span></button><div class="nav-submenu" id="deckNavSub1" role="group" aria-labelledby="deckNavHead1">
+          <button data-view="dash" data-needs="view_configuration" class="on" title="仪表板"><span class="ico">◈</span><span>仪表板</span></button>
+          <button data-view="checklist" data-serverwide="1" data-needs="view_configuration" title="配置检查"><span class="ico">☑</span><span>配置检查</span></button>
+        </div>
+        </section>
+        <section class="nav-group" data-nav-group><button type="button" class="nav-heading nav-group-toggle" id="deckNavHead2" aria-controls="deckNavSub2" aria-expanded="false"><span class="nav-group-label">域名与账户</span><span class="nav-group-arrow" aria-hidden="true">›</span></button><div class="nav-submenu" id="deckNavSub2" role="group" aria-labelledby="deckNavHead2" hidden>
+          <button data-view="domains" data-needs="view_accounts" title="域名管理"><span class="ico">⌂</span><span>域名管理</span></button>
+          <button data-view="groups" data-serverwide="1" data-needs="view_accounts" title="账户组管理"><span class="ico">⚇</span><span>账户组管理</span></button>
+          <button data-view="ipranges" data-serverwide="1" data-needs="view_configuration" title="IP 访问范围"><span class="ico">⌗</span><span>IP 访问范围</span></button>
+          <button data-view="fetch" data-needs="view_accounts" title="外部收取"><span class="ico">⇓</span><span>外部收取</span></button>
+          <button data-view="migrations" data-needs="view_accounts" title="邮箱迁移"><span class="ico">⇉</span><span>邮箱迁移</span></button>
+          <button data-view="lists" data-needs="view_accounts" title="邮件列表"><span class="ico">≣</span><span>邮件列表</span></button>
+          <button data-view="roles" data-needs="view_configuration" title="权限角色"><span class="ico">⚑</span><span>权限角色</span></button>
+          <button data-view="devices" data-needs="view_accounts" title="设备管理"><span class="ico">⌗</span><span>设备管理</span></button>
+          <button data-view="folders" data-needs="view_accounts" title="共享文件夹"><span class="ico">⊟</span><span>共享文件夹</span></button>
+        </div>
+        </section>
+        <section class="nav-group" data-nav-group><button type="button" class="nav-heading nav-group-toggle" id="deckNavHead3" aria-controls="deckNavSub3" aria-expanded="false"><span class="nav-group-label">邮件投递</span><span class="nav-group-arrow" aria-hidden="true">›</span></button><div class="nav-submenu" id="deckNavSub3" role="group" aria-labelledby="deckNavHead3" hidden>
+          <button data-view="queue" data-serverwide="1" data-needs="view_queue" title="邮件投递队列"><span class="ico">⇶</span><span>邮件投递队列</span></button>
+          <button data-view="tlsa" data-needs="view_configuration" title="DANE / TLSA"><span class="ico">⛨</span><span>DANE / TLSA</span></button>
+          <button data-view="routes" data-serverwide="1" data-needs="view_configuration" title="邮件路由"><span class="ico">⇥</span><span>邮件路由</span></button>
+          <button data-view="remotedomains" data-serverwide="1" data-needs="view_configuration" title="远程域名"><span class="ico">⇄</span><span>远程域名</span></button>
+          <button data-view="ports" data-serverwide="1" data-needs="view_configuration" title="服务端口"><span class="ico">⊞</span><span>服务端口</span></button>
+          <button data-view="messages" data-serverwide="1" data-needs="view_configuration" title="系统通知"><span class="ico">✎</span><span>系统通知</span></button>
+          <button data-view="rules" data-serverwide="1" data-needs="view_configuration" title="规则管理"><span class="ico">⚖</span><span>规则管理</span></button>
+          <button data-view="dns" data-needs="view_configuration" title="DNS 记录"><span class="ico">⌁</span><span>DNS 记录</span></button>
+          <button data-view="spamtraps" data-serverwide="1" data-needs="view_configuration" title="垃圾邮件陷阱"><span class="ico">◎</span><span>垃圾邮件陷阱</span></button>
+          <button data-view="journal" data-serverwide="1" data-needs="view_configuration" title="邮件日志记录"><span class="ico">✇</span><span>邮件日志记录</span></button>
+        </div>
+        </section>
+        <section class="nav-group" data-nav-group><button type="button" class="nav-heading nav-group-toggle" id="deckNavHead4" aria-controls="deckNavSub4" aria-expanded="false"><span class="nav-group-label">安全与合规</span><span class="nav-group-arrow" aria-hidden="true">›</span></button><div class="nav-submenu" id="deckNavSub4" role="group" aria-labelledby="deckNavHead4" hidden>
+          <button data-view="quarantine" data-serverwide="1" data-needs="view_quarantine" title="邮件隔离区"><span class="ico">⛔</span><span>邮件隔离区</span></button>
+          <button data-view="review" data-serverwide="1" data-needs="view_queue" title="待审核邮件"><span class="ico">⚠</span><span>待审核邮件</span></button>
+          <button data-view="archive" data-needs="view_archive" title="归档与保留"><span class="ico">⌸</span><span>归档与保留</span></button>
+          <button data-view="discovery" data-needs="view_discovery" title="邮件检索"><span class="ico">⌕</span><span>邮件检索</span></button>
+          <button data-view="certs" data-serverwide="1" data-needs="view_configuration" title="TLS 证书"><span class="ico">⚿</span><span>TLS 证书</span></button>
+          <button data-view="reputation" data-serverwide="1" data-needs="view_configuration" title="发信信誉"><span class="ico">⊘</span><span>发信信誉</span></button>
+          <button data-view="audit" data-serverwide="1" data-needs="view_audit" title="审计记录"><span class="ico">⚷</span><span>审计记录</span></button>
+          <button data-view="logs" data-serverwide="1" data-needs="view_logs" title="系统日志"><span class="ico">≡</span><span>系统日志</span></button>
+        </div>
+        </section>
+        <section class="nav-group" data-nav-group><button type="button" class="nav-heading nav-group-toggle" id="deckNavHead5" aria-controls="deckNavSub5" aria-expanded="false"><span class="nav-group-label">设置与运维</span><span class="nav-group-arrow" aria-hidden="true">›</span></button><div class="nav-submenu" id="deckNavSub5" role="group" aria-labelledby="deckNavHead5" hidden>
+          <div class="nav-settings-group" id="deckSettingsGroup">
+            <button type="button" class="nav-settings-toggle" id="deckSettingsToggle" aria-controls="deckSettingsSub" aria-expanded="false" title="系统设置"><span class="ico">⚙</span><span>系统设置</span><span class="nav-settings-arrow" aria-hidden="true">›</span></button>
+            <div class="nav-settings-sub" id="deckSettingsSub" role="group" aria-labelledby="deckSettingsToggle" hidden>
+              <button data-view="settings_server" data-serverwide="1" data-needs="view_configuration" title="服务器"><span class="ico">◉</span><span>服务器</span></button>
+              <button data-view="settings_spam" data-serverwide="1" data-needs="view_configuration" title="反垃圾邮件"><span class="ico">▣</span><span>反垃圾邮件</span></button>
+              <button data-view="settings_virus" data-serverwide="1" data-needs="view_configuration" title="反病毒"><span class="ico">✚</span><span>反病毒</span></button>
+              <button data-view="settings_logging" data-serverwide="1" data-needs="view_configuration" title="日志记录"><span class="ico">≡</span><span>日志记录</span></button>
+              <button data-view="settings_other" data-serverwide="1" data-needs="view_configuration" title="其他设置"><span class="ico">☷</span><span>其他设置</span></button>
+            </div>
+          </div>
+          <button data-view="changed" data-serverwide="1" data-admin="1" title="配置差异"><span class="ico">≠</span><span>配置差异</span></button>
+          <button data-view="backup" data-serverwide="1" data-needs="view_configuration" title="备份与恢复"><span class="ico">⛃</span><span>备份与恢复</span></button>
+          <button data-view="diagnostics" data-serverwide="1" data-needs="manage_server" title="系统诊断"><span class="ico">⚕</span><span>系统诊断</span></button>
+          <button data-view="metrics" data-serverwide="1" data-needs="view_configuration" title="监控指标"><span class="ico">∿</span><span>监控指标</span></button>
+          <button data-view="update" data-serverwide="1" data-needs="view_configuration" title="系统更新"><span class="ico">⇪</span><span>系统更新</span></button>
+          <button data-view="reports" data-needs="view_configuration view_message_trace" title="统计报表"><span class="ico">▤</span><span>统计报表</span></button>
+          <button data-view="webhooks" data-serverwide="1" data-needs="view_configuration" title="Webhook 管理"><span class="ico">↱</span><span>Webhook 管理</span></button>
+          <button data-view="inboundwebhooks" data-needs="view_configuration" title="入站 Webhook"><span class="ico">↲</span><span>入站 Webhook</span></button>
+          <button data-view="passkeys" data-serverwide="1" data-admin="1" title="通行密钥"><span class="ico">⚿</span><span>通行密钥</span></button>
+          <button data-view="apikeys" data-serverwide="1" data-admin="1" title="API 密钥"><span class="ico">⚿</span><span>API 密钥</span></button>
+        </div>
+        </section>
+      
+      </nav>
+      <div class="foot"><span class="side-foot-mark">●</span><span class="side-foot-text">安全管理 · v<span id="ver">—</span></span></div>
+    </aside>
+  <header class="cmdbar">
+    <span class="hmail-risk-banner" id="deckRiskBanner" role="note">非专业人员请勿修改此页面内容</span>
+
+    <a class="btn ghost sm deck-main-link" href="/admin/" target="_top" title="返回主后台" aria-label="返回主后台">⇄ <span>返回主后台</span></a>
+    <h1 id="viewTitle">仪表板</h1>
+    <div class="sp"></div>
+    <div class="deck-mode-switch" role="group" aria-label="管理界面模式"><button type="button" id="deckSimpleMode" class="deck-mode-button">精简模式</button><button type="button" id="deckProMode" class="deck-mode-button">专业模式</button></div>
+    <div class="search"><input id="deckSearch" type="search" placeholder="搜索当前页面" aria-label="搜索当前页面"><kbd>/</kbd></div>
+    <span class="pill" id="connPill" data-level="good"><span class="mark" id="connMark" aria-hidden="true">■</span><span id="connState">未检测</span></span>
+    <button class="iconbtn" id="themeBtn" data-nowalk>◐</button>
+    <button class="iconbtn" id="tourBtn" title="Show me around" aria-label="Show me around">◎</button>
+    <button class="iconbtn" id="helpBtn" title="Help for this view" aria-label="Help for this view">?</button>
+    <button class="iconbtn" id="keysBtn" title="Keyboard shortcuts" aria-label="Keyboard shortcuts">⌨</button>
+    <button class="iconbtn" id="logoutBtn" title="Sign out" aria-label="Sign out">⏻</button>
+  </header>
+  <div class="shell">
+    
+    <main class="main"><div class="content" id="content" tabindex="-1"></div></main>
+    <!-- The help pane: what the documentation says about the view showing,
+         beside it. The body and the headings are drawn from the document by
+         the script and are not the page's texts, so the localiser leaves
+         them; the head, the search and the foot are. -->
+    <aside class="helppane" id="helpPane" hidden aria-label="Help">
+      <div class="head"><h2 id="helpTitle">Help</h2><button class="iconbtn" id="helpClose" title="Close the help" aria-label="Close the help">✕</button></div>
+      <div class="find"><input id="helpSearch" type="search" placeholder="Search this document" aria-label="Search this document"></div>
+      <nav class="heads" id="helpHeads" aria-label="Headings" data-nowalk></nav>
+      <div class="body" id="helpBody" tabindex="-1" data-nowalk></div>
+      <div class="foot"><a id="helpWiki" href="#" target="_blank" rel="noopener noreferrer" hidden>Open on the wiki</a><button class="btn ghost sm" id="helpAll">All documentation</button></div>
+    </aside>
+  </div>
+</div>
+
+<!-- The shortcut list, which ? opens and Escape closes. Its rows are drawn
+     by the script from one table, so the key names stay as they are printed
+     on the keyboard and only what each one does is translated. -->
+<div class="overlay" id="keysOverlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="keysTitle">
+    <h2 id="keysTitle">Keyboard shortcuts</h2>
+    <dl class="keys" id="keysList" data-nowalk></dl>
+    <button class="btn" id="keysClose">Close</button>
+  </div>
+</div>
+
+<!-- The tour. Outside the app shell so that the ring can sit over any part of
+     it, hidden until a tour runs, and polite rather than assertive: a step
+     that interrupted whatever a screen reader was saying would be exactly the
+     interruption a tour promises not to be. -->
+<div class="tourring" id="tourRing" hidden></div>
+<div class="tourcard" id="tourCard" hidden role="group" aria-live="polite" aria-label="Tour">
+  <div class="head"><span id="tourName"></span><span id="tourStep"></span></div>
+  <p id="tourText"></p>
+  <div class="row">
+    <button class="btn ghost sm" id="tourBack">Back</button>
+    <button class="btn sm" id="tourNext">Next</button>
+    <button class="btn ghost sm" id="tourSkip">Skip the tour</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script defer src="/layui/js/layui.js"></script>
+<script defer src="./assets/core.js?v=20261106-zebra1"></script>
+<script defer src="./assets/boot.js?v=20261106-zebra1"></script>
+</body>
+</html>

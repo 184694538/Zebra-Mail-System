@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script src="/theme/theme-loader.js?v=20261106-2" data-scope="admin"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>API 接口文档 - 斑马邮箱</title>
+    <link rel="stylesheet" href="/theme/colors.css?v=20261106-dark-toolbar5">
+    <style>
+        :root {
+            --doc-bg: var(--z-bg, #eaf0f7);
+            --doc-panel: var(--z-panel, #f7faff);
+            --doc-ink: var(--z-ink, #263f5c);
+            --doc-muted: var(--z-muted, #61758c);
+            --doc-border: var(--z-border, #b8c8d9);
+            --doc-accent: var(--z-accent, #315e91);
+            --doc-hover: var(--z-hover, #d5e5f5);
+            --doc-code: var(--z-label, #e2eaf4);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 22px; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--doc-bg);
+            color: var(--doc-ink);
+            font: 14px/1.7 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+        }
+        button, a { font: inherit; }
+        a { color: var(--doc-accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .doc-shell { width: min(1320px, 100%); margin: 0 auto; padding: 22px 26px 42px; }
+        .doc-topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; margin-bottom: 20px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .brand-mark {
+            width: 42px; height: 42px; display: grid; place-items: center;
+            flex: 0 0 42px; border-radius: 13px; color: #fff;
+            background: var(--doc-accent); font-size: 18px; font-weight: 800;
+            box-shadow: 0 5px 16px rgba(30, 70, 110, .18);
+        }
+        .brand-title { font-size: 17px; font-weight: 750; letter-spacing: .2px; }
+        .brand-subtitle { color: var(--doc-muted); font-size: 12px; }
+        .back-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+            padding: 8px 13px; border: 1px solid var(--doc-border);
+            border-radius: 9px; color: var(--doc-ink); background: var(--doc-panel);
+            white-space: nowrap;
+        }
+        .back-link:hover { background: var(--doc-hover); text-decoration: none; }
+        .doc-hero {
+            position: relative; overflow: hidden; padding: 26px 30px; margin-bottom: 20px;
+            border: 1px solid var(--doc-border); border-radius: 16px;
+            background: linear-gradient(125deg, var(--doc-panel), var(--doc-bg));
+        }
+        .hero-kicker { color: var(--doc-accent); font-size: 11px; font-weight: 800; letter-spacing: 1.8px; }
+        .doc-hero h1 { margin: 5px 0 7px; font-size: clamp(25px, 3vw, 34px); line-height: 1.25; }
+        .doc-hero p { max-width: 780px; margin: 0; color: var(--doc-muted); }
+        .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+        .meta-chip {
+            padding: 4px 10px; border: 1px solid var(--doc-border);
+            border-radius: 999px; color: var(--doc-muted); background: var(--doc-panel);
+            font-size: 12px;
+        }
+        .doc-layout { display: grid; grid-template-columns: 224px minmax(0, 1fr); gap: 20px; align-items: start; }
+        .doc-nav {
+            position: sticky; top: 16px; padding: 15px 12px;
+            border: 1px solid var(--doc-border); border-radius: 13px;
+            background: var(--doc-panel); max-height: calc(100vh - 32px); overflow: auto;
+        }
+        .nav-title { padding: 0 10px 8px; color: var(--doc-muted); font-size: 11px; font-weight: 800; letter-spacing: 1px; }
+        .doc-nav a {
+            display: block; padding: 8px 10px; margin: 2px 0;
+            border-radius: 8px; color: var(--doc-ink); font-size: 13px;
+        }
+        .doc-nav a:hover { background: var(--doc-hover); text-decoration: none; }
+        .doc-main { min-width: 0; }
+        .doc-card {
+            padding: 22px 24px; margin-bottom: 16px;
+            border: 1px solid var(--doc-border); border-radius: 13px;
+            background: var(--doc-panel); scroll-margin-top: 18px;
+        }
+        .section-heading { display: flex; align-items: center; gap: 10px; margin: 0 0 13px; font-size: 19px; line-height: 1.4; }
+        .section-no {
+            display: inline-grid; place-items: center; width: 27px; height: 27px;
+            flex: 0 0 27px; border-radius: 8px; color: #fff;
+            background: var(--doc-accent); font-size: 12px; font-weight: 800;
+        }
+        .muted { color: var(--doc-muted); }
+        .base-url {
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            padding: 11px 13px; border: 1px dashed var(--doc-border);
+            border-radius: 9px; background: var(--doc-bg); overflow-wrap: anywhere;
+        }
+        .base-url code { color: var(--doc-accent); font-weight: 700; }
+        .copy-btn {
+            flex: 0 0 auto; border: 1px solid var(--doc-border); border-radius: 7px;
+            padding: 5px 10px; color: var(--doc-ink); background: var(--doc-panel);
+            cursor: pointer; font-size: 12px;
+        }
+        .copy-btn:hover { border-color: var(--doc-accent); color: var(--doc-accent); }
+        .callout {
+            padding: 12px 14px; margin: 13px 0; border-left: 3px solid var(--doc-accent);
+            border-radius: 7px; background: var(--doc-bg); color: var(--doc-muted);
+        }
+        .callout strong { color: var(--doc-ink); }
+        .endpoint-head { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin: 2px 0 12px; }
+        .method {
+            padding: 3px 8px; border-radius: 6px; color: #fff;
+            background: #287a58; font-size: 11px; font-weight: 800; letter-spacing: .4px;
+        }
+        .endpoint-path { font: 700 14px/1.5 Consolas, "Courier New", monospace; overflow-wrap: anywhere; }
+        .endpoint-desc { color: var(--doc-muted); }
+        .table-wrap { width: 100%; overflow-x: auto; margin: 10px 0 14px; }
+        table { width: 100%; border-collapse: collapse; min-width: 580px; font-size: 13px; }
+        th, td { padding: 9px 10px; border: 1px solid var(--doc-border); text-align: left; vertical-align: top; }
+        th { background: var(--doc-bg); font-weight: 700; white-space: nowrap; }
+        td code { overflow-wrap: anywhere; }
+        code, pre { font-family: Consolas, "Cascadia Code", "Courier New", monospace; }
+        code.inline {
+            padding: 2px 5px; border-radius: 4px; background: var(--doc-bg);
+            color: var(--doc-accent); font-size: .92em;
+        }
+        .code-wrap { position: relative; margin: 10px 0 14px; }
+        pre {
+            overflow: auto; margin: 0; padding: 15px 16px; padding-right: 78px;
+            border: 1px solid var(--doc-border); border-radius: 9px;
+            background: var(--doc-code); color: var(--doc-ink);
+            font-size: 12px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere;
+        }
+        .code-wrap .copy-btn { position: absolute; top: 8px; right: 8px; }
+        .tag {
+            display: inline-block; padding: 2px 7px; margin: 2px 4px 2px 0;
+            border: 1px solid var(--doc-border); border-radius: 5px;
+            color: var(--doc-muted); font-size: 11px;
+        }
+        .danger { border-left-color: #c64c4c; }
+        .danger strong { color: #c64c4c; }
+        .footer-note { padding: 8px 3px; color: var(--doc-muted); text-align: center; font-size: 12px; }
+        @media (max-width: 850px) {
+            .doc-shell { padding: 16px 14px 30px; }
+            .doc-layout { grid-template-columns: 1fr; }
+            .doc-nav { position: static; max-height: none; display: flex; flex-wrap: wrap; gap: 3px; }
+            .nav-title { width: 100%; }
+            .doc-nav a { padding: 6px 9px; }
+        }
+        @media (max-width: 560px) {
+            .doc-shell { padding: 12px 10px 24px; }
+            .doc-topbar { align-items: flex-start; }
+            .brand-title { font-size: 15px; }
+            .back-link { padding: 7px 9px; font-size: 12px; }
+            .doc-hero { padding: 20px 18px; }
+            .doc-card { padding: 17px 14px; }
+            .section-heading { font-size: 17px; }
+            .base-url { align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="doc-shell">
+    <header class="doc-topbar">
+        <div class="brand">
+            <div class="brand-mark">API</div>
+            <div>
+                <div class="brand-title">斑马邮箱 · API 开发文档</div>
+                <div class="brand-subtitle">Zebra Mail · API Reference</div>
+            </div>
+        </div>
+        <a class="back-link" id="back-to-api" href="/admin/page5">← 返回 API 管理</a>
+    </header>
+
+    <section class="doc-hero">
+        <div class="hero-kicker">DEVELOPER DOCUMENTATION</div>
+        <h1>API 接口文档</h1>
+        <p>本文档介绍斑马邮箱当前提供的邮件读取、批量删除和域名查询接口。所有接口均由当前部署的斑马邮箱服务提供，不依赖第三方文档平台。</p>
+        <div class="hero-meta">
+            <span class="meta-chip">当前部署地址</span>
+            <span class="meta-chip">HTTP API</span>
+            <span class="meta-chip">中文说明</span>
+        </div>
+    </section>
+
+    <div class="doc-layout">
+        <nav class="doc-nav" aria-label="文档目录">
+            <div class="nav-title">文档目录</div>
+            <a href="#overview">基础说明</a>
+            <a href="#read-email">读取邮件（需要密码）</a>
+            <a href="#read-email2">读取邮件（免密码）</a>
+            <a href="#delete-emails">批量删除邮件</a>
+            <a href="#query-domains">查询域名</a>
+            <a href="#responses">响应与错误说明</a>
+            <a href="#security">安全注意事项</a>
+        </nav>
+
+        <main class="doc-main">
+            <section class="doc-card" id="overview">
+                <h2 class="section-heading"><span class="section-no">01</span>基础说明</h2>
+                <p>接口地址以当前斑马邮箱站点域名为准。下面是本项目 API 的统一路径前缀：</p>
+                <div class="base-url">
+                    <code id="api-base-url">正在读取当前站点地址…</code>
+                    <button type="button" class="copy-btn" data-copy-target="api-base-url">复制</button>
+                </div>
+                <div class="callout">
+                    <strong>调用前请确认：</strong>登录管理后台，进入「API 管理」，确认「是否启用 API」为启用状态，并使用对应接口的密钥。关闭 API 总开关后，以下接口都会拒绝访问。
+                </div>
+                <h3>密钥对应关系</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>接口</th><th>密钥名称</th><th>用途</th></tr></thead>
+                        <tbody>
+                            <tr><td>读取邮件</td><td><code>read_email_key</code></td><td>读取邮件，需要邮箱账户和密码</td></tr>
+                            <tr><td>读取邮件（免密码）</td><td><code>read_email_key2</code></td><td>读取本站已保存原始密码的普通邮箱</td></tr>
+                            <tr><td>批量删除邮件</td><td><code>delete_emails_key</code></td><td>删除指定邮箱 INBOX 中的全部邮件</td></tr>
+                            <tr><td>查询域名</td><td><code>queryDomainName_key</code></td><td>查询当前系统中的域名列表</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="muted">示例中的 <code class="inline">YOUR_..._KEY</code>、邮箱账户和密码均为占位内容，请替换成实际值。密钥可在「API 管理」页面查看或重置。</p>
+            </section>
+
+            <section class="doc-card" id="read-email">
+                <h2 class="section-heading"><span class="section-no">02</span>读取邮件（需要密码）</h2>
+                <div class="endpoint-head">
+                    <span class="method">GET</span>
+                    <code class="endpoint-path">/MailApi/read_email</code>
+                    <span class="tag">返回 HTML 页面</span>
+                </div>
+                <p class="endpoint-desc">使用指定邮箱账户和密码连接邮件服务器，读取一封邮件。默认读取收件箱中最新一封邮件。</p>
+                <h3>请求参数</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>参数</th><th>必填</th><th>默认值</th><th>说明</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>key</code></td><td>是</td><td>—</td><td>读取邮件密钥：<code>read_email_key</code></td></tr>
+                            <tr><td><code>username</code></td><td>是</td><td>—</td><td>完整邮箱地址</td></tr>
+                            <tr><td><code>password</code></td><td>是</td><td>—</td><td>邮箱登录密码</td></tr>
+                            <tr><td><code>server_ip</code></td><td>否</td><td><code>127.0.0.1</code></td><td>邮件服务器 IP 或主机名</td></tr>
+                            <tr><td><code>port</code></td><td>否</td><td><code>143</code></td><td>支持 143（IMAP STARTTLS）、993（IMAP SSL/TLS）、110（POP3）、995（POP3 SSL/TLS）</td></tr>
+                            <tr><td><code>mbox_id</code></td><td>否</td><td><code>0</code></td><td>邮件序号；0 表示读取当前最后一封邮件</td></tr>
+                            <tr><td><code>delete</code></td><td>否</td><td><code>0</code></td><td>设为 1 时尝试删除读取的邮件；仅 IMAP 端口支持，且服务器需支持 UIDPLUS</td></tr>
+                            <tr><td><code>beautify</code></td><td>否</td><td><code>0</code></td><td>设为 1 时打开美化收件箱页面，见下方说明</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>调用示例</h3>
+                <div class="code-wrap">
+                    <pre id="read-email-example"></pre>
+                    <button type="button" class="copy-btn" data-copy-target="read-email-example">复制示例</button>
+                </div>
+                <div class="callout">
+                    <strong>美化模式：</strong>添加 <code class="inline">beautify=1</code> 后显示只读收件箱，按「API 管理」中设置的全局数量限制展示邮件。该模式忽略 <code class="inline">mbox_id</code> 和 <code class="inline">delete</code>，不会自动删除邮件；未提供账户或密码时会显示输入页面。
+                </div>
+                <p class="muted">普通读取模式返回 HTML 邮件内容页面，不是 JSON 数据。</p>
+            </section>
+
+            <section class="doc-card" id="read-email2">
+                <h2 class="section-heading"><span class="section-no">03</span>读取邮件（免密码）</h2>
+                <div class="endpoint-head">
+                    <span class="method">GET</span>
+                    <code class="endpoint-path">/MailApi/read_email2</code>
+                    <span class="tag">返回 HTML 页面</span>
+                </div>
+                <p class="endpoint-desc">通过系统保存的邮箱原始密码连接本机 hMailServer。调用方只需要传入邮箱账户，不需要传入邮箱密码。</p>
+                <h3>请求参数</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>参数</th><th>必填</th><th>默认值</th><th>说明</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>key</code></td><td>是</td><td>—</td><td>免密码读取密钥：<code>read_email_key2</code></td></tr>
+                            <tr><td><code>username</code></td><td>是*</td><td>—</td><td>完整邮箱地址；普通读取模式必填</td></tr>
+                            <tr><td><code>port</code></td><td>否</td><td><code>143</code></td><td>支持 143、993、110、995；连接目标固定为本机 <code>127.0.0.1</code></td></tr>
+                            <tr><td><code>mbox_id</code></td><td>否</td><td><code>0</code></td><td>邮件序号；0 表示读取当前最后一封邮件</td></tr>
+                            <tr><td><code>delete</code></td><td>否</td><td><code>0</code></td><td>设为 1 时尝试删除读取的邮件；仅 IMAP 端口支持，且服务器需支持 UIDPLUS</td></tr>
+                            <tr><td><code>beautify</code></td><td>否</td><td><code>0</code></td><td>设为 1 时打开只读美化收件箱；可不传 username 先打开输入页面</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>调用示例</h3>
+                <div class="code-wrap">
+                    <pre id="read-email2-example"></pre>
+                    <button type="button" class="copy-btn" data-copy-target="read-email2-example">复制示例</button>
+                </div>
+                <div class="callout">
+                    <strong>使用条件：</strong>邮箱必须是已启用的普通邮箱，并且系统中已保存该邮箱的原始密码。未保存原始密码的旧账户无法使用此接口。该接口不接受 <code class="inline">server_ip</code> 参数，固定连接本机邮件服务。
+                </div>
+            </section>
+
+            <section class="doc-card" id="delete-emails">
+                <h2 class="section-heading"><span class="section-no">04</span>批量删除邮件</h2>
+                <div class="endpoint-head">
+                    <span class="method">GET</span>
+                    <code class="endpoint-path">/MailApi/delete_emails</code>
+                    <span class="tag">返回 JSON</span>
+                    <span class="tag">高风险操作</span>
+                </div>
+                <p class="endpoint-desc">连接指定邮箱服务器，删除该邮箱 INBOX 中的全部邮件。此操作不可恢复，请务必确认邮箱账户和参数。</p>
+                <h3>请求参数</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>参数</th><th>必填</th><th>默认值</th><th>说明</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>key</code></td><td>是</td><td>—</td><td>删除邮件密钥：<code>delete_emails_key</code></td></tr>
+                            <tr><td><code>username</code></td><td>是</td><td>—</td><td>完整邮箱地址</td></tr>
+                            <tr><td><code>password</code></td><td>是</td><td>—</td><td>邮箱登录密码</td></tr>
+                            <tr><td><code>server_ip</code></td><td>否</td><td><code>127.0.0.1</code></td><td>邮件服务器 IP 或主机名</td></tr>
+                            <tr><td><code>port</code></td><td>否</td><td><code>143</code></td><td>仅支持 IMAP 143（STARTTLS）或 993（SSL/TLS）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>调用示例</h3>
+                <div class="code-wrap">
+                    <pre id="delete-emails-example"></pre>
+                    <button type="button" class="copy-btn" data-copy-target="delete-emails-example">复制示例</button>
+                </div>
+                <h3>成功响应</h3>
+                <div class="code-wrap"><pre>{
+  "status": true,
+  "message": "已删除 12 封邮件"
+}</pre></div>
+                <div class="callout danger">
+                    <strong>重要：</strong>该接口会删除 INBOX 中的全部邮件，不是只删除某一封。接口仅支持 IMAP 143/993，不支持 POP3。请勿将删除密钥放在公开网页或客户端代码中。
+                </div>
+            </section>
+
+            <section class="doc-card" id="query-domains">
+                <h2 class="section-heading"><span class="section-no">05</span>查询域名</h2>
+                <div class="endpoint-head">
+                    <span class="method">GET</span>
+                    <code class="endpoint-path">/MailApi/queryDomainName</code>
+                    <span class="tag">返回 JSON</span>
+                </div>
+                <p class="endpoint-desc">查询当前斑马邮箱系统中已配置的全部域名。</p>
+                <h3>请求参数</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>参数</th><th>必填</th><th>说明</th></tr></thead>
+                        <tbody><tr><td><code>key</code></td><td>是</td><td>域名查询密钥：<code>queryDomainName_key</code></td></tr></tbody>
+                    </table>
+                </div>
+                <h3>调用示例</h3>
+                <div class="code-wrap">
+                    <pre id="query-domains-example"></pre>
+                    <button type="button" class="copy-btn" data-copy-target="query-domains-example">复制示例</button>
+                </div>
+                <h3>成功响应</h3>
+                <div class="code-wrap"><pre>{
+  "status": true,
+  "code": 200,
+  "message": "查询成功",
+  "data": [
+    "example.com",
+    "example.net"
+  ]
+}</pre></div>
+            </section>
+
+            <section class="doc-card" id="responses">
+                <h2 class="section-heading"><span class="section-no">06</span>响应与错误说明</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>情况</th><th>返回内容</th><th>处理建议</th></tr></thead>
+                        <tbody>
+                            <tr><td>API 总开关关闭</td><td>HTTP 403；提示邮件 API 已由管理员关闭</td><td>在后台「API 管理」中启用 API</td></tr>
+                            <tr><td>密钥错误</td><td>读取接口返回错误 HTML；JSON 接口返回错误信息</td><td>检查密钥是否匹配，必要时重新生成</td></tr>
+                            <tr><td>邮箱账户或密码错误</td><td>显示连接或认证失败信息</td><td>检查邮箱账户、密码、服务器地址和端口</td></tr>
+                            <tr><td>没有邮件</td><td>提示无邮件或返回对应 JSON 状态</td><td>确认 INBOX 中存在邮件</td></tr>
+                            <tr><td>查询不到域名</td><td>JSON 中返回 <code>code: 404</code></td><td>确认系统已配置域名</td></tr>
+                            <tr><td>删除接口端口不支持</td><td>JSON 错误信息</td><td>将端口改为 143 或 993</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="muted">读取邮件接口输出 HTML；删除邮件和查询域名接口输出 JSON。调用端应根据对应接口的返回类型处理响应。</p>
+            </section>
+
+            <section class="doc-card" id="security">
+                <h2 class="section-heading"><span class="section-no">07</span>安全注意事项</h2>
+                <ul>
+                    <li>正式环境请使用 HTTPS，避免密钥和邮箱凭据在网络中明文传输。</li>
+                    <li>密钥具有实际操作权限，请勿发布到公开网页、公开代码仓库或群聊中。</li>
+                    <li>当前示例使用 URL 查询参数传递密钥和邮箱凭据，可能被浏览器历史、Web 服务器访问日志等记录；请勿在公共设备上调用，并按需清理日志。</li>
+                    <li><code class="inline">delete_emails</code> 会删除整个 INBOX，请在服务端严格限制调用权限，并先确认目标邮箱。</li>
+                    <li>如果怀疑密钥泄露，请在「API 管理」页面重置对应密钥。</li>
+                </ul>
+            </section>
+            <div class="footer-note">斑马邮箱 API 文档 · 以当前安装版本的实际接口行为为准</div>
+        </main>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var appBasePath = '/';
+    try {
+        if (window.parent && window.parent !== window && window.parent.baseUrl) {
+            appBasePath = window.parent.baseUrl;
+        }
+    } catch (_) {}
+    if (!appBasePath.endsWith('/')) appBasePath += '/';
+
+    var appBase = new URL(appBasePath, window.location.origin);
+    var apiBase = new URL('MailApi/', appBase).href;
+    var adminPage = new URL('admin/page5', appBase).href;
+
+    var baseElement = document.getElementById('api-base-url');
+    if (baseElement) baseElement.textContent = apiBase;
+
+    var examples = {
+        'read-email-example': apiBase + 'read_email?key=YOUR_READ_EMAIL_KEY&username=user%40example.com&password=YOUR_PASSWORD&port=993&mbox_id=0',
+        'read-email2-example': apiBase + 'read_email2?key=YOUR_READ_EMAIL_KEY2&username=user%40example.com&port=993&mbox_id=0',
+        'delete-emails-example': apiBase + 'delete_emails?key=YOUR_DELETE_EMAILS_KEY&username=user%40example.com&password=YOUR_PASSWORD&port=993',
+        'query-domains-example': apiBase + 'queryDomainName?key=YOUR_QUERY_DOMAIN_NAME_KEY'
+    };
+    Object.keys(examples).forEach(function (id) {
+        var element = document.getElementById(id);
+        if (element) element.textContent = examples[id];
+    });
+
+    var backLink = document.getElementById('back-to-api');
+    if (backLink) backLink.href = adminPage;
+
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            var copied = false;
+            try { copied = document.execCommand('copy'); } catch (_) {}
+            document.body.removeChild(textarea);
+            copied ? resolve() : reject(new Error('copy failed'));
+        });
+    }
+
+    document.querySelectorAll('[data-copy-target]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var target = document.getElementById(button.getAttribute('data-copy-target'));
+            if (!target) return;
+            copyText(target.textContent || '').then(function () {
+                var oldText = button.textContent;
+                button.textContent = '已复制';
+                window.setTimeout(function () { button.textContent = oldText; }, 1300);
+            }).catch(function () {
+                button.textContent = '复制失败';
+                window.setTimeout(function () { button.textContent = '复制'; }, 1300);
+            });
+        });
+    });
+})();
+</script>
+</body>
+</html>
