@@ -1,0 +1,37 @@
+# Local environment and secrets
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.sample
+
+# Runtime/private data (keep the directory-level .gitignore files)
+/mail_admin/config_private/*
+!/mail_admin/config_private/.gitignore
+!/mail_admin/config_private/.htaccess
+/mail_admin/runtime/*
+!/mail_admin/runtime/.gitignore
+/mail_admin/backups/*
+!/mail_admin/backups/.gitignore
+
+# Generated logs, caches, temporary files and local backups
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.backup
+*.old
+*.orig
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local IDE and operating-system files
+.idea/
+.vscode/
+.settings/
+*.iml
+
+# Private hMailServer data folders must never enter a source release
+**/maFiles/
